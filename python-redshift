@@ -1,0 +1,36 @@
+import psycopg2
+host = 'my-redshift-group.147935167194.ap-south-1.redshift-serverless.amazonaws.com'
+dbname = 'dev'
+user = 'admin'
+password = 'Thanvi2021'
+port = '5439'  # Default Redshift porttry:
+    conn = psycopg2.connect(
+        host=host,
+        dbname=dbname,
+        user=user,
+        password=password,
+        port=port
+    )
+
+    # Create a cursor to interact with the database
+    cursor = conn.cursor()
+    sql='select * from products limit 10'
+    cursor.execute(sql)
+    for x in cursor:
+        print(x)
+    
+    
+
+    # Perform your database operations here
+    # For example, you can execute SQL queries using cursor.execute()
+
+    # Don't forget to commit any changes and close the cursor and connection when done.
+    conn.commit()
+
+    cursor.close()
+    conn.close()
+    
+
+except psycopg2.Error as e:
+    print("Error: Could not connect to the database.")
+    print(e)
